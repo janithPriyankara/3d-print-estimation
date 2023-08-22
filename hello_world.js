@@ -20,8 +20,6 @@ app.post('/calculate', (req, res) => {
 
     //   3d print details
     print_name = 'test_print';
-    // print_time = print_time;
-    // print_weight = print_weight;
     total_filament_cost = print_weight * price_of_an_unit_filament;
 
 
@@ -35,10 +33,11 @@ app.post('/calculate', (req, res) => {
     // labour cost
     print_preparation_rate = 100;
     post_process_rate = 50;
-    print_preparation_time = 100;
-    post_process_time = 100;
+    print_preparation_time = print_time*(5/100)/60;
+    post_process_time = print_time*(10/100)/60;;
     total_labour_cost = (print_preparation_time * print_preparation_rate) + (post_process_rate * post_process_time);
     total_labour_cost /= 60
+    
     // machine and upkeep cost
     printer_cost = 96000;
     investment_return = 2;
