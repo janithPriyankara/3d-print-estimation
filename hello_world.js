@@ -31,8 +31,8 @@ app.post('/calculate', (req, res) => {
 
 
     // labour cost
-    print_preparation_rate = 1000;
-    post_process_rate = 750;
+    print_preparation_rate = 200;
+    post_process_rate = 250;
     print_preparation_time = pre_time;
     post_process_time = post_time;
     total_labour_cost = (print_preparation_time * print_preparation_rate) + (post_process_rate * post_process_time);
