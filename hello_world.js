@@ -5,7 +5,7 @@ const port = 2000;
 app.use(express.json());
 
 app.post('/calculate', (req, res) => {
-    const { print_time, print_weight } = req.body;
+    const { print_time, print_weight,pre_time,post_time } = req.body;
 
 
     //   filament spool details
@@ -33,8 +33,8 @@ app.post('/calculate', (req, res) => {
     // labour cost
     print_preparation_rate = 1000;
     post_process_rate = 750;
-    print_preparation_time = print_time*(5/100)/60;
-    post_process_time = print_time*(10/100)/60;;
+    print_preparation_time = pre_time;
+    post_process_time = post_time;
     total_labour_cost = (print_preparation_time * print_preparation_rate) + (post_process_rate * post_process_time);
     total_labour_cost /= 60
     
