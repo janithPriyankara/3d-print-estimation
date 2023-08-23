@@ -1,7 +1,6 @@
 {
   "name": "hello_world",
   "version": "1.0.0",
-  "description": "",
   "main": "hello_world.js",
   "scripts": {
     "start": "node hello_world.js"
@@ -12,5 +11,6 @@
   "dependencies": {
     "config-ini": "^0.2.2",
     "express": "^4.18.2"
-  }
+  },
+  "description": ""
 }

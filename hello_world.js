@@ -5,12 +5,24 @@ const port = 2000;
 app.use(express.json());
 
 app.post('/calculate', (req, res) => {
-    const { print_time, print_weight,pre_time,post_time } = req.body;
 
 
+     printJobs = req.body;
+
+     calculateCost = printJobs.map(
+        job=>{
+             const { 
+                print_time, 
+                print_weight, 
+                pre_time, 
+                post_time,
+                spool_price = 13000,    
+                print_preparation_rate = 200,
+                post_process_rate = 250 } = job;
+
+            
     //   filament spool details
     filament_type = 'PLA';
-    spool_price = 13000;
     spool_weight = 1000;
     spool_spool_weight = 0;
     spool_filament_weight = spool_weight - spool_spool_weight;
@@ -31,8 +43,7 @@ app.post('/calculate', (req, res) => {
 
 
     // labour cost
-    print_preparation_rate = 200;
-    post_process_rate = 250;
+
     print_preparation_time = pre_time;
     post_process_time = post_time;
     total_labour_cost = (print_preparation_time * print_preparation_rate) + (post_process_rate * post_process_time);
@@ -51,13 +62,17 @@ app.post('/calculate', (req, res) => {
     total_cost = total_labour_cost + total_electricity_bill + total_filament_cost;
     total_cost = repair_cost_rate * total_cost;
 
-    calculatedCost = 100;
-    res.json({
+    return {
         total_filament_cost: total_filament_cost,
         total_electricity_bill: total_electricity_bill,
         total_labour_cost: total_labour_cost,
         total_cost: total_cost,
-    });
+    };
+        }
+    );
+
+res.json(calculateCost);
+
 });
 
 app.listen(port, () => {
