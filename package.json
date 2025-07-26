@@ -1,16 +1,21 @@
 {
-  "name": "hello_world",
+  "name": "print-estimation",
   "version": "1.0.0",
-  "main": "hello_world.js",
+  "main": "estimation_server.js",
   "scripts": {
-    "start": "node hello_world.js"
+    "start": "node estimation_server.js",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "config-ini": "^0.2.2",
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   },
   "description": ""
 }

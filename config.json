@@ -1,0 +1,11 @@
+{
+  "spool_price": 13000,
+  "print_preparation_rate": 200,
+  "post_process_rate": 250,
+  "spool_weight": 1000,
+  "spool_spool_weight": 0,
+  "power_consumption_of_the_machine": 360,
+  "avg_energy_cost_of_electricity": 150,
+  "markup_percentage": 20,
+  "repair_cost_percentage": 5
+}
