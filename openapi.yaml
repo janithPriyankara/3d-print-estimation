@@ -1,0 +1,151 @@
+openapi: 3.0.0
+info:
+  title: 3D Print Estimation API
+  version: 1.0.0
+servers:
+  - url: http://localhost:2000
+paths:
+  /calculate:
+    post:
+      summary: Calculate cost estimates for 3D print jobs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PrintJob'
+            example:
+              - print_time: 60
+                print_weight: 50
+                pre_time: 15
+                post_time: 20
+      responses:
+        '200':
+          description: Calculation results for each provided print job
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PrintCost'
+              example:
+                - total_filament_cost: 780
+                  total_electricity_bill: 54
+                  total_labour_cost: 133.33
+                  total_cost: 1015.7
+  /config:
+    get:
+      summary: Get current pricing configuration
+      responses:
+        '200':
+          description: Current config values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Config'
+    post:
+      summary: Update pricing configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Config'
+      responses:
+        '200':
+          description: Updated configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Config'
+components:
+  schemas:
+    PrintJob:
+      type: object
+      properties:
+        print_time:
+          type: number
+          description: Printing duration (minutes)
+        print_weight:
+          type: number
+          description: Weight of filament used (grams)
+        pre_time:
+          type: number
+          description: Preparation time before printing (minutes)
+        post_time:
+          type: number
+          description: Post-processing time (minutes)
+        spool_price:
+          type: number
+          description: Cost of a filament spool in local currency
+          default: 13000
+        print_preparation_rate:
+          type: number
+          description: Labour rate for preparation per minute
+          default: 200
+        post_process_rate:
+          type: number
+          description: Labour rate for post processing per minute
+          default: 250
+      required:
+        - print_time
+        - print_weight
+        - pre_time
+        - post_time
+      example:
+        print_time: 60
+        print_weight: 50
+        pre_time: 15
+        post_time: 20
+        spool_price: 13000
+        print_preparation_rate: 200
+        post_process_rate: 250
+    PrintCost:
+      type: object
+      properties:
+        total_filament_cost:
+          type: number
+        total_electricity_bill:
+          type: number
+        total_labour_cost:
+          type: number
+        total_cost:
+          type: number
+      example:
+        total_filament_cost: 780
+        total_electricity_bill: 54
+        total_labour_cost: 133.33
+        total_cost: 1015.7
+    Config:
+      type: object
+      properties:
+        spool_price:
+          type: number
+        print_preparation_rate:
+          type: number
+        post_process_rate:
+          type: number
+        spool_weight:
+          type: number
+        spool_spool_weight:
+          type: number
+        power_consumption_of_the_machine:
+          type: number
+        avg_energy_cost_of_electricity:
+          type: number
+        markup_percentage:
+          type: number
+        repair_cost_percentage:
+          type: number
+      example:
+        spool_price: 13000
+        print_preparation_rate: 200
+        post_process_rate: 250
+        spool_weight: 1000
+        spool_spool_weight: 0
+        power_consumption_of_the_machine: 360
+        avg_energy_cost_of_electricity: 150
+        markup_percentage: 20
+        repair_cost_percentage: 5
